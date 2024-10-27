@@ -1,0 +1,62 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 800px;
+  width: 400px;
+  border: 1px solid black;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2; /* This will make the .container sit on top */
+}
+
+.pic-container {
+  display: flex;
+  flex-direction: column;
+  height: 800px;
+  width: 400px;
+  border: 1px solid blue;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1; /* This will be behind the .container */
+}
+
+.row {
+  flex: 1;
+  display: flex;
+  align-items: stretch;
+}
+
+.block {
+  flex: 1;
+}
+
+.coloredBlock {
+  background-color: black;
+  border: 1px solid black;
+}
+
+.pic-block {
+  border: 1px solid blue;
+  height: 25%;
+  display: flex;
+  justify-content: center; /* Centers horizontally */
+  align-items: center; /* Centers vertically */
+  padding: 20px;
+}
+
+h2 {
+  margin: 0; /* Removes default margin */
+  transform: rotate(90deg); /* Rotates the text by 90 degrees */
+  transform-origin: left center; /* Adjusts the origin point of the rotation */
+  max-width: 50%; /* Ensures the h2 does not exceed the width of the pic-block */
+  white-space: nowrap; /* Prevents the text from wrapping */
+}
+
+button {
+  border-color: white;
+  color: white;
+  background-color: white;
+  display: none;
+}
