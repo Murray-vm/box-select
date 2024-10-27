@@ -1,5 +1,6 @@
 const containerDiv = document.querySelector(".container");
 const button = document.querySelector("button");
+let lastColoredBlockIndex = -1; // Variable to track the last colored block index
 
 function hoverChange(e) {
   console.log("hover");
@@ -14,6 +15,24 @@ function touchChange(e) {
 
   if (element && element.classList.contains("block")) {
     element.classList.add("coloredBlock");
+    // Store the index of the colored block
+    lastColoredBlockIndex = Array.from(
+      containerDiv.getElementsByClassName("block")
+    ).indexOf(element);
+  }
+}
+
+function touchEnd(e) {
+  e.preventDefault(); // Prevent default behavior
+  if (lastColoredBlockIndex !== -1) {
+    console.log(`Last colored block index: ${lastColoredBlockIndex}`);
+    if (lastColoredBlockIndex > 1249 && lastColoredBlockIndex < 1900) {
+      alert("correct");
+    } else {
+      alert("incorrect");
+    }
+  } else {
+    console.log("No block was colored.");
   }
 }
 
@@ -29,6 +48,7 @@ function createGrid(gridSize = 50) {
       // Add event listeners for hover and touch events
       block.addEventListener("mouseover", hoverChange);
       block.addEventListener("touchmove", touchChange);
+      block.addEventListener("touchend", touchEnd); // Add touchend listener
 
       row.appendChild(block);
     }
