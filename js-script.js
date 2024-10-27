@@ -1,6 +1,7 @@
 const containerDiv = document.querySelector(".container");
 const button = document.querySelector("button");
 let lastColoredBlockIndex = -1; // Variable to track the last colored block index
+let alertTimeout; // Variable to hold the timeout ID
 
 function hoverChange(e) {
   console.log("hover");
@@ -22,8 +23,7 @@ function touchChange(e) {
   }
 }
 
-function touchEnd(e) {
-  e.preventDefault(); // Prevent default behavior
+function handleAlert() {
   if (lastColoredBlockIndex !== -1) {
     console.log(`Last colored block index: ${lastColoredBlockIndex}`);
     if (lastColoredBlockIndex > 1249 && lastColoredBlockIndex < 1900) {
@@ -34,6 +34,16 @@ function touchEnd(e) {
   } else {
     console.log("No block was colored.");
   }
+}
+
+function touchEnd(e) {
+  e.preventDefault(); // Prevent default behavior
+
+  // Clear the previous timeout if a new touchend event occurs
+  clearTimeout(alertTimeout);
+
+  // Set a new timeout to handle the alert after 3 seconds of no touch events
+  alertTimeout = setTimeout(handleAlert, 3000);
 }
 
 function createGrid(gridSize = 50) {
@@ -59,7 +69,7 @@ function createGrid(gridSize = 50) {
 function newGrid() {
   gridSize = prompt("Enter the size of your grid");
   if (gridSize > 100 || gridSize < 1)
-    alert("grid size invalid please keep the grid size between 1 and 100");
+    alert("Grid size invalid; please keep the grid size between 1 and 100.");
   else {
     containerDiv.textContent = "";
     createGrid(gridSize);
